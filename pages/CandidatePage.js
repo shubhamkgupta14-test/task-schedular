@@ -101,7 +101,7 @@ class CandidatePage {
 
     while (pageNo <= maxPages) {
       await this.verifyRelevantApplication(jobName, includeWords, excludeWords);
-      await this.sendBulkSMS(false);
+      await this.sendBulkSMS(true);
       await this.exportData();
 
       if (
