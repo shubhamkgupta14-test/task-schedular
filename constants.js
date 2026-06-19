@@ -6,12 +6,14 @@ const JOB_NAMES = process.env.JOB_NAMES.split(",").map((job) => job.trim());
 
 const INCLUDE_WORDS = [
   "telecall",
+  "Tele call",
   "telesales",
   "customer service",
   "inside sales",
   "BPO",
   "call center",
   "sales executive",
+  "Business Development Executive",
 ];
 
 const EXCLUDE_WORDS = ["fresher"];

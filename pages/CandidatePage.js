@@ -40,6 +40,16 @@ class CandidatePage {
     this.getCheckbox = (card) => card.locator("xpath=.//input");
   }
 
+  normalizeJobText(text) {
+    if (!text) return "";
+
+    return text
+      .toLowerCase()
+      .split(/\s+(?:at|in)\s+/)[0]
+      .replace(/\([^)]*\)/g, "")
+      .trim();
+  }
+
   //
   async verifyRelevantApplication(jobName, includeWords, excludeWords) {
     await this.page.waitForLoadState("networkidle");
@@ -65,9 +75,9 @@ class CandidatePage {
       let relExp = "";
 
       if (await relExpLocator.count()) {
-        relExp = (
-          (await relExpLocator.first().textContent()) || ""
-        ).toLowerCase();
+        relExp = normalizeJobText(
+          (await relExpLocator.first().textContent()) || "",
+        );
       }
 
       const currJobLocator = this.getCurrJob(card);
@@ -75,23 +85,29 @@ class CandidatePage {
       let currJob = "";
 
       if (await currJobLocator.count()) {
-        currJob = (
-          (await currJobLocator.first().textContent()) || ""
-        ).toLowerCase();
+        currJob = normalizeJobText(
+          (await currJobLocator.first().textContent()) || "",
+        );
       }
 
-      const combinedText = `${relExp} ${currJob}`;
+      const combinedText = `${relExp} - ${currJob}`; //
+      console.log(`[DEBUG] Card ${i + 1} Text: ${combinedText}`);
 
       const hasExcludeWord = excludeWords.some((word) =>
         combinedText.includes(word.toLowerCase()),
       );
 
+      if (hasExcludeWord) {
+        console.log(`[DEBUG] Card ${i + 1} skipped (exclude word found)`);
+        continue;
+      }
+
       const hasIncludeWord = includeWords.some((word) =>
         combinedText.includes(word.toLowerCase()),
       );
 
-      if (hasExcludeWord) {
-        console.log(`[DEBUG] Card ${i + 1} skipped`);
+      if (!hasIncludeWord) {
+        console.log(`[DEBUG] Card ${i + 1} skipped (no include word found)`);
         continue;
       }
 

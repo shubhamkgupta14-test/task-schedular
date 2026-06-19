@@ -39,7 +39,7 @@ for (const jobName of JOB_NAMES) {
       console.log("[DEBUG] Candidate Active In: 1 Month");
       await dashboardPage.selectFilterRadioOptions(
         "Candidate Active In",
-        "1 Month",
+        "7 Days",
       );
 
       console.log("[DEBUG] Preferred Languages: Hindi, Kannada");
@@ -71,9 +71,9 @@ for (const jobName of JOB_NAMES) {
       console.log("[DEBUG] Starting CSV merge");
       const excelFile = await ExcelUtils.mergeCsvToExcel(jobName);
       FileUtils.clearDownloadsFolder();
-      console.log(`[DEBUG] Excel generated: ${excelFile}`);
 
       if (excelFile) {
+        console.log(`[DEBUG] Excel generated: ${excelFile}`);
         ReportStore.updateExcel(jobName, path.basename(excelFile));
       } else {
         ReportStore.updateExcel(jobName, "No Export");
@@ -81,6 +81,15 @@ for (const jobName of JOB_NAMES) {
 
       ReportStore.updateStatus(jobName, "PASSED");
     } catch (e) {
+      console.log("[DEBUG] Starting CSV merge");
+      const excelFile = await ExcelUtils.mergeCsvToExcel(jobName);
+      FileUtils.clearDownloadsFolder();
+      if (excelFile) {
+        console.log(`[DEBUG] Excel generated: ${excelFile}`);
+        ReportStore.updateExcel(jobName, path.basename(excelFile));
+      } else {
+        ReportStore.updateExcel(jobName, "No Export");
+      }
       ReportStore.updateStatus(jobName, "FAILED");
       console.error(`Job ${jobName} failed:`, e.message);
       throw e;
