@@ -33,7 +33,7 @@ jobs:
           WORKINDIA_USERNAME: ${{ secrets.WORKINDIA_USERNAME }}
           WORKINDIA_PASSWORD: ${{ secrets.WORKINDIA_PASSWORD }}
           JOB_NAMES: ${{ github.event.inputs.job_name }}
-        run: npx playwright test
+        run: npx playwright test --headed
 
       - name: Upload Playwright Report
         if: always()
