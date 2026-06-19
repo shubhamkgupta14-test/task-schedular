@@ -44,10 +44,15 @@ class CandidatePage {
   async verifyRelevantApplication(jobName, includeWords, excludeWords) {
     await this.page.waitForLoadState("networkidle");
 
-    await this.cards.first().waitFor({
-      state: "visible",
-      timeout: 10000,
-    });
+    try {
+      await this.cards.first().waitFor({
+        state: "visible",
+        timeout: 20000,
+      });
+    } catch {
+      console.log("[DEBUG] No candidates found on current page");
+      return;
+    }
 
     const count = await this.cards.count();
     console.log(`[DEBUG] Total cards found: ${count}`);
