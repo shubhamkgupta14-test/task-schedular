@@ -142,14 +142,15 @@ class CandidatePage {
 
   async exportData() {
     await this.page.waitForTimeout(500);
-    console.log("[DEBUG] Exporting candidate data");
     if (await this.exportBtn.isEnabled()) {
+      console.log("[DEBUG] Exporting candidate data");
       const filePath = await DownloadUtils.downloadFile(this.page, async () => {
         await this.exportBtn.click({ timeout: 10000 });
       });
-      console.log("[DEBUG] CSV download completed");
+      console.log(`[DEBUG] CSV download completed - ${filePath}`);
       return filePath;
     }
+    console.log("[DEBUG] No data to export");
   }
 }
 

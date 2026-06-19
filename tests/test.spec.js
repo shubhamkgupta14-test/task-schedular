@@ -71,7 +71,7 @@ for (const jobName of JOB_NAMES) {
       console.log("[DEBUG] Starting CSV merge");
       const excelFile = await ExcelUtils.mergeCsvToExcel(jobName);
       FileUtils.clearDownloadsFolder();
-      console.log(`[DEBUG] Excel generated: ${fileName}`);
+      console.log(`[DEBUG] Excel generated: ${excelFile}`);
 
       if (excelFile) {
         ReportStore.updateExcel(jobName, path.basename(excelFile));
