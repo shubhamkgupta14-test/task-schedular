@@ -36,7 +36,7 @@ jobs:
           WORKINDIA_USERNAME: ${{ secrets.WORKINDIA_USERNAME }}
           WORKINDIA_PASSWORD: ${{ secrets.WORKINDIA_PASSWORD }}
           JOB_NAMES: ${{ secrets.JOB_NAMES }}
-        run: npx playwright test --headed
+        run: npx playwright test
 
       - name: Upload Playwright Report
         if: always()

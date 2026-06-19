@@ -26,7 +26,7 @@ export default defineConfig({
   use: {
     baseURL: "https://www.workindia.in/employers-v2/signin/",
 
-    headless: true,
+    headless: process.env.CI ? true : false,
 
     screenshot: "only-on-failure",
     video: "retain-on-failure",
