@@ -7,7 +7,7 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
 
-  timeout: 1000 * 60 * 10 * 6,
+  timeout: 1000 * 60 * 10 * 6, // 60 min
 
   expect: {
     timeout: 10 * 1000,
@@ -24,13 +24,16 @@ export default defineConfig({
   reporter: [["html", { open: "never" }], ["list"]],
 
   use: {
+    actionTimeout: 15000,
+    navigationTimeout: 30000,
+
     baseURL: "https://www.workindia.in/employers-v2/signin/",
 
     headless: process.env.CI ? true : false,
 
     screenshot: "only-on-failure",
-    video: "retain-on-failure",
-    trace: "on",
+    video: process.env.CI ? "off" : "retain-on-failure",
+    trace: "retain-on-failure",
 
     ignoreHTTPSErrors: true,
   },
