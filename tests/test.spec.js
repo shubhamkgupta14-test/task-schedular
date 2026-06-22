@@ -42,17 +42,17 @@ for (const jobName of JOB_NAMES) {
         "7 Days",
       );
 
-      console.log("[DEBUG] Preferred Languages: Hindi, Kannada");
+      console.log("[DEBUG] Preferred Languages: English, Kannada");
       await dashboardPage.selectFilterSelectOptions(
         "Preferred Languages",
-        "Hindi,Kannada",
+        "English,Kannada",
       );
 
       console.log("[DEBUG] Minimum Experience: 1 Year");
       await dashboardPage.selectFilterDropdownOption("Experience", "1 Year");
 
-      console.log("[DEBUG] Maximum Salary: 25000");
-      await dashboardPage.enterFilterOption("Salary", "25000");
+      // console.log("[DEBUG] Maximum Salary: 25000");
+      // await dashboardPage.enterFilterOption("Salary", "25000");
 
       const DISTANCES = ["5 KM", "10 KM"];
       for (const distance of DISTANCES) {

@@ -132,12 +132,12 @@ class DashboardPage {
     }
 
     // Uncheck English if selected
-    const englishLocator = this.getFilterSelectOptions(section, "english");
+    // const englishLocator = this.getFilterSelectOptions(section, "english");
 
-    await this.page.waitForTimeout(500);
-    if (await englishLocator.isChecked()) {
-      await englishLocator.click({ timeout: 5000 });
-    }
+    // await this.page.waitForTimeout(500);
+    // if (await englishLocator.isChecked()) {
+    //   await englishLocator.click({ timeout: 5000 });
+    // }
   }
 
   async forDebug() {
