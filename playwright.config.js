@@ -33,7 +33,7 @@ export default defineConfig({
 
     screenshot: "only-on-failure",
     video: process.env.CI ? "off" : "retain-on-failure",
-    trace: "retain-on-failure",
+    trace: "on",
 
     ignoreHTTPSErrors: true,
   },
